@@ -12,7 +12,6 @@ var litur_auga = 180
 var haed_munnur = 10
 var breidd_munnur= 50
 var litur_munnur = 100
-
 var x = 150
 var y = 150
 var hopp = 1
