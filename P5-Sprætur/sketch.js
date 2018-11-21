@@ -20,13 +20,6 @@ function setup() {
   frameRate(1);
 }
 
-function draw(){
-    //image(img, x, y, [width], [height])
-    //imageMode(CENTER);
-  //image(pakkar,random(0,600),random(1,300),30,30);
-    //image(mynd,0,0,600,300);
-}
-
 function mouseClicked(){
     if (k==true){
       background(mynd2);
@@ -36,6 +29,5 @@ function mouseClicked(){
       background(mynd1);
       k=true;
     }
-
 
 }
