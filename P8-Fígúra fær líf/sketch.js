@@ -1,75 +1,82 @@
-//breytur
-var karl1, karl2, karl3;
+//Eggertar á ferðinni
 
 function setup() {
   createCanvas(600, 600);
-  // Búum til þrjá karl hluti.
-  karl1 = new karl(200,400,100);
-  karl2 = new karl(300,300,75);
-  karl3 = new karl(400,300,150);
+  // Byggja eggerta með staðsetningu xy og höfuðlit
+  eggert1 = new eggert(100,40,200,0,100);
+  eggert2 = new eggert(300,30,0,0,200);
+  eggert3 = new eggert(400,30,0,200,0);
+  eggert4 = new eggert(500,30,200,80,200);
 }
 
 function draw() {
-	background(200,150,0);
-  fill(207,93,216);
+	background(100,10,130);
+  fill(200,100,16);
   noStroke();
 	ellipse(300,300,500,500);
-  // Ef hluturinn er nálgt miðjunni, þá hreyfir hann sig
+  // Ef hluturinn er nálagt miðjunni, þá hreyfir hann sig
   // Ef ekki þá stoppar hann og blikkar bara augunum.
-  karl1.move();
-  karl1.show();
-  karl2.move();
-  karl2.show();
-  karl3.move();
-  karl3.show();
+  eggert1.faera();
+  eggert1.byggja();
+  eggert2.faera();
+  eggert2.byggja();
+  eggert3.faera();
+  eggert3.byggja();
+  eggert4.faera();
+  eggert4.byggja();
 }
 
-// Klasinn karl
-// (x,y): er miðpunkturinn sem hann er teiknaður útfrá.
-// bukur: er lengdin á búknum
-// dir: er stefnan sem hann ferðast í
-// speed: er hraðinn sem hann ferðast á
-// eyecolor: er liturinn á augunum hans
-class karl{
-  constructor(x,y,bukur) {
+// Klassi fyrir breytur
+class eggert{
+  constructor(x,y,r,g,b) {
     this.x = x;
     this.y = y;
-    this.bukur = bukur;
     this.dir = random(0,2*PI);
     this.speed = random(0,5);
-    this.eyeColor = color(100,100,100);
+    this.augnlitur = color(100,100,100);
+    this.augasteinslitur = color(250,250,250);
+    this.hofudlitur = color(r,g,b);
+    this.munnlitur = color(200,0,0);
   }
 
-  // Teiknar geimveruna karl
-  show(){
-    rectMode(CENTER);
-    strokeWeight(1.5);
+  //byggja eggerta
+  byggja(){
     stroke(0);
-    // Teiknum búkinn
-    fill(236,36,94);
-    rect(this.x,this.y,40,this.bukur);
-    // Teiknum hausinn
-    fill(255);
-    ellipse(this.x,this.y - this.bukur/2, 80,80);
-    // Teiknum augun
-    fill(this.eyeColor);
-    ellipse (this.x - 25,this.y - this.bukur/2, 20,40);
-    ellipse (this.x + 25,this.y - this.bukur/2, 20,40);
-    // Teiknum fæturna
-    line (this.x - 20, this.y + this.bukur/2, this.x - 20, this.y + this.bukur/2 + 50);
-    line (this.x + 20, this.y + this.bukur/2, this.x + 20, this.y + this.bukur/2 + 50);
+    fill(this.munnlitur);
+    //fætur
+    rect(this.x-this.y/8, this.y, this.y/4, 1.5*this.y);
+    rect(this.x+this.y/2, this.y, this.y/4, 1.5*this.y);
+    //búkur
+    rect(this.x-this.y/8,this.y, this.y, this.y);
+    //höfuð
+    fill(this.hofudlitur);
+    ellipse(this.x, this.y, this.y, this.y);
+    //augu
+    fill(this.augnlitur);
+    ellipse(this.x-this.y/8, this.y-this.y/8, this.y/6, this.y/6);
+    ellipse(this.x+this.y/8, this.y-this.y/8, this.y/6, this.y/6);
+    fill(this.augasteinslitur);
+    ellipse(this.x-this.y/8, this.y-this.y/8, this.y/8, this.y/8);
+    ellipse(this.x+this.y/8, this.y-this.y/8, this.y/8, this.y/8);
+    fill(0,0,0);
+    ellipse(this.x-this.y/8, this.y-this.y/8, this.y/12, this.y/12);
+    ellipse(this.x+this.y/8, this.y-this.y/8, this.y/12, this.y/12);
+    //munnur
+    fill(this.munnlitur);
+    ellipse(this.x, this.y+this.y/8, this.y/6, 6);
+
   }
 
-  // Hreyfir karl um skjáinn.
-  // Hann minnkar sífelt hraðann, en velur svo slembistenfu
-  // og fyglir henni á nyjum slbenum hraða.
-	move(){
+  // Hreyfir eggerta um skjáinn.
+  // Þeir minnkar sífelt hraðann, en velur svo slembistenfu
+  // og fyglja henni á nyjum slbenum hraða.
+	faera(){
 		this.x = this.x + this.speed*cos(this.dir);
 		this.y = this.y + this.speed*sin(this.dir);
 		this.speed = this.speed/1.05;
 		if(this.speed < 0.1){
 			this.dir = random(0,2*PI);
-			this.speed = random(1,5);
+			this.speed = random(1,10);
 		}
       if (fjarlægð(this.x,this.y,width/2,height/2) > 250){
       	this.blink();
@@ -82,7 +89,7 @@ class karl{
 
   // Velur slembinn lit fyrir augun á karl.
 	blink(){
-		this.eyeColor = color(random(255), random(255), random(255));
+		//this.augnlitur = color(random(255), random(255), random(255));
 	}
 }
 
