@@ -14,8 +14,7 @@ function draw() {
   fill(200,100,16);
   noStroke();
 	ellipse(300,300,500,500);
-  // Ef hluturinn er nálagt miðjunni, þá hreyfir hann sig
-  // Ef ekki þá stoppar hann og blikkar bara augunum.
+  // Eggertar hreyfðir og byggðir
   eggert1.faera();
   eggert1.byggja();
   eggert2.faera();
@@ -68,8 +67,6 @@ class eggert{
   }
 
   // Hreyfir eggerta um skjáinn.
-  // Þeir minnkar sífelt hraðann, en velur svo slembistenfu
-  // og fyglja henni á nyjum slbenum hraða.
 	faera(){
 		this.x = this.x + this.speed*cos(this.dir);
 		this.y = this.y + this.speed*sin(this.dir);
@@ -79,19 +76,13 @@ class eggert{
 			this.speed = random(1,10);
 		}
       if (fjarlægð(this.x,this.y,width/2,height/2) > 250){
-      	this.blink();
-        this.dir = atan((this.y - height/2)/(this.x-width/2));
+      	this.dir = atan((this.y - height/2)/(this.x-width/2));
         if(this.x - width/2 > 0){
         	this.dir = this.dir + PI;
         }
       }
-	}
-
-  // Velur slembinn lit fyrir augun á karl.
-	blink(){
-		//this.augnlitur = color(random(255), random(255), random(255));
-	}
-}
+	  }
+   }
 
 // Skilar fjarlægðinni á milli punktanna
 // (x1,y1) og (x2,y2).
